@@ -32,9 +32,28 @@ for gif_file in gif_files:
     if not os.path.exists(gif_output_folder):
         os.makedirs(gif_output_folder)
     # Save frames to output folder
+    print(gif_output_folder)
     for i in range(len(frames)):
         frames[i].save(os.path.join(gif_output_folder, f'frame_{i}.png'))
-    print(f'{gif_name} completed')
     
+    num_sequence = " ".join(str(i) for i in range(gif.n_frames))
+    print(num_sequence)
+
+    with open(os.path.join(gif_output_folder,'meta.txt'), 'w') as file:
+        file.write('Filetype: Flipper Animation\n')
+        file.write('Version: 1\n\n')
+        file.write('Width: 128\n')
+        file.write('Height: 64\n')
+        file.write(f'Passive frames: {gif.n_frames}\n')
+        file.write('Active frames: 0\n')
+        file.write(f'Frames order: {num_sequence}\n')
+        file.write('Active cycles: 0\n')
+        file.write('Frame rate: 7\n')
+        file.write('Duration: 3600\n')
+        file.write('Active cooldown: 0\n\n')
+        file.write('Bubble slots: 0\n')
+
+
+    print(f'{gif_name} completed')
 # Confirmation message
 print("Process completed!")
